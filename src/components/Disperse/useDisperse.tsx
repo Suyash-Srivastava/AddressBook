@@ -1,5 +1,6 @@
 
 import { useState } from 'react'
+import { seperator } from '../../utils/regex'
 
 const useDisperse = () => {
 
@@ -26,7 +27,7 @@ const useDisperse = () => {
         const addresses: string[] = [];
         const amounts: string[] = [];
         for (let i = 0; i < eachLine.length; i++) {
-            const [address, amount] = eachLine[i].split(/[ ,=]/)
+            const [address, amount] = eachLine[i].split(seperator)
             addresses.push(address)
             amounts.push(amount)
         }
@@ -94,7 +95,7 @@ const useDisperse = () => {
         const inputValue = inputData;
         const eachLineArray: string[] = inputValue?.split('\n')
         for (let i = 0; i < eachLineArray.length; i++) {
-            const [address, amount] = eachLineArray[i].split(/[ ,;]/)
+            const [address, amount] = eachLineArray[i].split(seperator)
             if (newBook.has(address) === false) {
                 newBook.set(address, parseInt(amount))
             }
