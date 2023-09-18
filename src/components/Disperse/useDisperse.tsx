@@ -26,7 +26,7 @@ const useDisperse = () => {
         const addresses: string[] = [];
         const amounts: string[] = [];
         for (let i = 0; i < eachLine.length; i++) {
-            const [address, amount] = eachLine[i].split(/[ ,;]/)
+            const [address, amount] = eachLine[i].split(/[ ,=]/)
             addresses.push(address)
             amounts.push(amount)
         }
@@ -100,7 +100,8 @@ const useDisperse = () => {
             }
             else {
                 if (option === 1) {
-                    const newamount = parseInt(amount) + newBook.get(address)
+                    const prevAmount = newBook?.get(address)
+                    const newamount = parseInt(amount) + (prevAmount ?? 0)
                     newBook.set(address, newamount)
                 }
                 else {

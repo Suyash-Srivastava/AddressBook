@@ -2,7 +2,7 @@
   height: 100vh;
   width: 100vw;
 
-  --inputbg: lightgrey;
+  --inputbg: gainsboro;
   --primarytext: grey;
   --buttonbg: rgb(71, 71, 180);
   --buttonbg_active: rgb(15, 15, 107);
