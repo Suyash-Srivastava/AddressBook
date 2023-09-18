@@ -1,12 +1,11 @@
 
-import React, { useRef, useState } from 'react'
+import { useState } from 'react'
 
 const useDisperse = () => {
 
     const [inputData, setInputData] = useState('')
     const [errorMessage, setErrorMessage] = useState<string>('')
     const [duplicateKeysPresent, setDuplicateKeysPresent] = useState(false)
-    const [addressMap, setAddressMap] = useState<any>()
 
     function onSubmit() {
         setDuplicateKeysPresent(false)
@@ -76,20 +75,22 @@ const useDisperse = () => {
                 addressMap.set(address, addressValue + ',' + (i + 1))
             }
         }
-        setAddressMap(addressMap)
+
         return { duplicateDetected, addressMap }
     }
 
     function keepFirstOne() {
         const changedInput = operateOnInput(0)
+        showDataInUI(changedInput)
     }
 
     function combineBalances() {
         const changedInput = operateOnInput(1)
+        showDataInUI(changedInput)
     }
 
     function operateOnInput(option: number) {
-        const newBook = new Map()
+        const newBook: Map<string, number> = new Map()
         const inputValue = inputData;
         const eachLineArray: string[] = inputValue?.split('\n')
         for (let i = 0; i < eachLineArray.length; i++) {
@@ -107,9 +108,17 @@ const useDisperse = () => {
                 }
             }
         }
-        console.log(newBook);
 
         return (newBook);
+    }
+
+    function showDataInUI(changedInput: Map<string, number>) {
+        const newInput: string[] = []
+        for (const [key, value] of changedInput) {
+            newInput.push(key + ' ' + value)
+        }
+
+        setInputData(newInput.join('\n'))
     }
 
     return ({
